@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Challenge 1</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      
+      canvas {
+        border-radius: 6px;
+        border: solid #34515E 1px;
+        position: absolute;
+      }
+      video {
+        
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="appFrame">
+      <canvas id="canvas" width="480" height="360"></canvas>
+      <video width="480" height="360" id="video" autoplay="true"></video>
+      <div class="tabs">
+        <input type="radio" id="addPersonTab" name="tab" tabindex="0" checked="checked" />
+        <label for="addPersonTab">Add person</label>
+        <div class="addPersonTab tab">
+          <form>
+            <label for="name">Name:</label><input id="name"/>
+            <label for="email">Email:</label><input id="email"/>
+            <button id="add">Add</button>
+          </form>
+        </div>
+
+        <input type="radio" id="requestPaymentTab" name="tab" tabindex="0" />
+        <label for="requestPaymentTab">Request payment</label>
+        <div class="requestPaymentTab tab">
+          <form>
+            <label for="to">To:</label><input id="to"/>
+            <label for="amount">Amount:</label><input id="amount"/>
+            <button id="requestPayment">Request payment</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      var video = document.getElementById("video");
+
+      function setupCanvas() {
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+          requestAnimationFrame(renderFrame);
+        } else setTimeout(setupCanvas, 100);
+      }
+
+      function init() {
+        navigator.mediaDevices.getUserMedia({ audio: false, video: true, video: { width: 480, height: 360 }}).then((stream) => {
+          video.srcObject = stream;
+          setupCanvas();
+        });
+      }
+
+      //init();
+    </script>
+  </body>
+</html>
